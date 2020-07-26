@@ -28,5 +28,21 @@ class Player:
             print("{} est mort :(".format(target_player.pseudo))
 
 
+class Sorcerer(Player):
+
+    def __init__(self, pseudo, health, attack):
+        super().__init__(pseudo, health, attack)
+        self.magic_shield = 10
+        print("Bienvenue au sorcier:", pseudo, "/ Points de vie:", health, "/ Attaque:", attack)
+
+    def damage(self, damage):
+        if self.magic_shield > 0:
+            self.magic_shield -= damage
+        damage = 0
+        if self.magic_shield > 0:
+            print("Un bouclier magique protège le sorcier")
+            print("Points restant: ", self.magic_shield)
+        super().damage(damage)
+
 
 
