@@ -46,5 +46,3 @@ class Sorcerer(Player):
             print("Le bouclier magique est détruit")
         super().damage(damage)
 
-
-
