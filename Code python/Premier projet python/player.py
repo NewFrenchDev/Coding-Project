@@ -1,14 +1,23 @@
 
 class Player:
 
-    def __init__(self, pseudo, health, attack):
+    def __init__(self, pseudo, level, xp_to_level_up, health, attack):
         self.pseudo = pseudo
+        self.level = level
+        self.xp_to_level_up = xp_to_level_up
         self.health = health
         self.attack = attack
-        print("Bienvenue au joueur:", pseudo, "/ Points de vie: ", health, "/ Attaque: ", attack)
+        print("Bienvenue au joueur:", pseudo, "/ Niveau:", level, "/Point avant de monter de niveau:", xp_to_level_up,
+              "/ Points de vie: ", health, "/ Attaque: ", attack)
 
     def get_pseudo(self):
         return self.pseudo
+
+    def get_level(self):
+        return self.level
+
+    def get_xp_to_level_up(self):
+        return self.xp_to_level_up
 
     def get_health(self):
         return self.health
@@ -30,8 +39,8 @@ class Player:
 
 class Sorcerer(Player):
 
-    def __init__(self, pseudo, health, attack):
-        super().__init__(pseudo, health, attack)
+    def __init__(self, pseudo, level, xp_to_level_up, health, attack):
+        super().__init__(pseudo, level, xp_to_level_up, health, attack)
         self.magic_shield = 10
         print(pseudo, "est de la classe Sorcier")
 
