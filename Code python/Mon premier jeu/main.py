@@ -1,14 +1,20 @@
 import pygame
 import math
+import platform
 from game import Game
+from system_language import OsLanguage
 pygame.init()
+
+#Verifier l'OS du joueur
+user_platform = platform.system()
+#Si Window --> Vérifier le language du systeme du joueur
+if user_platform == 'Windows':
+    os_language = OsLanguage()
+    os_language.check_user_default_language()
 
 #Générer la fenetre du jeu
 pygame.display.set_caption("Shooter Game")
 screen = pygame.display.set_mode((1080, 720))
-
-#animation marche de la sorcière à droite
-
 
 #charger l'arrière plan du jeu
 background = pygame.image.load('assets/bg.jpg')
@@ -27,7 +33,7 @@ play_button_rect.x = math.ceil(screen.get_width()/3.33)
 play_button_rect.y = math.ceil(screen.get_height()/2)
 
 #charger le jeu
-game = Game()
+game = Game(os_language)
 
 game.player.update_player_image_movement()
 
@@ -43,12 +49,12 @@ while running:
     if game.is_playing:
         #déclencher la partie
         game.update(screen)
+        print(os_language.user_default_language)
     #vérifier si notre jeu n'a pas commencé
     else:
         #créer l'écran de bienvenue
         screen.blit(play_button, play_button_rect)
         screen.blit(banner, banner_rect)
-
 
     #mettre à jour l'écran
     pygame.display.flip()

@@ -17,19 +17,22 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 500
+        #mouvement pour le saut
+        self.movex = 0
+        self.movey = 0
 
         #animation mouvement du joueur
-        self.all_image_move_right = [pygame.image.load('assets/wizard/Run/0.png'),
-                                     pygame.image.load('assets/wizard/Run/1.png'),
-                                     pygame.image.load('assets/wizard/Run/2.png'),
-                                     pygame.image.load('assets/wizard/Run/3.png'),
-                                     pygame.image.load('assets/wizard/Run/4.png'),
-                                     pygame.image.load('assets/wizard/Run/5.png'),
-                                     pygame.image.load('assets/wizard/Run/6.png'),
-                                     pygame.image.load('assets/wizard/Run/7.png'),
-                                     pygame.image.load('assets/wizard/Run/8.png'),
-                                     pygame.image.load('assets/wizard/Run/9.png')]
-        self.walkRight = []
+        self.all_raw_image_player_walk = [pygame.image.load('assets/wizard/Walk/0.png'),
+                                          pygame.image.load('assets/wizard/Walk/1.png'),
+                                          pygame.image.load('assets/wizard/Walk/2.png'),
+                                          pygame.image.load('assets/wizard/Walk/3.png'),
+                                          pygame.image.load('assets/wizard/Walk/4.png'),
+                                          pygame.image.load('assets/wizard/Walk/5.png'),
+                                          pygame.image.load('assets/wizard/Walk/6.png'),
+                                          pygame.image.load('assets/wizard/Walk/7.png'),
+                                          pygame.image.load('assets/wizard/Walk/8.png'),
+                                          pygame.image.load('assets/wizard/Walk/9.png')]
+        self.player_walk = []
         self.walkCounter = 0
         self.jump_movement = [pygame.image.load('assets/wizard/Jump/0.png'),
                               pygame.image.load('assets/wizard/Jump/1.png'),
@@ -82,15 +85,14 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.jumpCounter += 1
 
-
     def update_player_image_movement(self):
-        for image in self.all_image_move_right:
-            self.walkRight.append(pygame.transform.scale(image, (250, 200)))
+        for image in self.all_raw_image_player_walk:
+            self.player_walk.append(pygame.transform.scale(image, (250, 200)))
         for image in self.jump_movement:
             self.all_jump_movement.append(pygame.transform.scale(image, (250, 200)))
 
     def animate_player_deplacement(self, screen):
-        self.image = self.walkRight[self.walkCounter // 3]
+        self.image = self.player_walk[self.walkCounter // 3]
         screen.blit(self.image, (self.rect.x, self.rect.y))
         if self.walkCounter == 27:
             self.walkCounter = 0

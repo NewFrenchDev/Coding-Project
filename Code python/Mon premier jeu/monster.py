@@ -45,6 +45,8 @@ class Monster(pygame.sprite.Sprite):
 
     def remove(self):
         self.game.all_monster.remove(self)
+        self.game.score += 100
+        self.game.monster_dead = True
 
     def damage(self, amount):
         #infliger des dégâts
@@ -56,10 +58,10 @@ class Monster(pygame.sprite.Sprite):
             self.velocity = random.randint(1, 3)
             self.game.spawn_monster()
 
-    def update_health_bar(self, surface):
+    def update_health_bar(self, screen):
         #dessiner notre bar de vie
-        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 15, self.rect.y - 10, self.max_health, 5])
-        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 15, self.rect.y - 10, self.health, 5])
+        pygame.draw.rect(screen, (60, 63, 60), [self.rect.x + 15, self.rect.y - 10, self.max_health, 5])
+        pygame.draw.rect(screen, (111, 210, 46), [self.rect.x + 15, self.rect.y - 10, self.health, 5])
 
     def forward(self, screen):
         # si il n'y a pas de collision avec le joueur
