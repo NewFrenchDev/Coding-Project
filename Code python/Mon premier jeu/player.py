@@ -7,10 +7,12 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, game):
         super().__init__()
         self.game = game
+        #Stat du joueur
         self.health = 100
         self.max_health = 100
         self.attack = 20
         self.velocity = 5
+        #Image du joueur
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/wizard.png')
         self.image = pygame.transform.scale(self.image, (250, 200))
@@ -85,6 +87,12 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.jumpCounter += 1
 
+    def gravity(self):
+        self.movey += 2
+        if self.rect.y > 720 and self.movey >= 0:
+            self.movey = 0
+            self.rect.y = 720 - 64
+
     def update_player_image_movement(self):
         for image in self.all_raw_image_player_walk:
             self.player_walk.append(pygame.transform.scale(image, (250, 200)))
@@ -103,5 +111,4 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/wizard.png')
         self.image = pygame.transform.scale(self.image, (250, 200))
         screen.blit(self.image, (self.rect.x, self.rect.y))
-
 

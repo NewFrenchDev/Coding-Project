@@ -1,16 +1,12 @@
 import pygame
 import math
-import platform
 from game import Game
 from system_language import OsLanguage
 pygame.init()
 
-#Verifier l'OS du joueur
-user_platform = platform.system()
-#Si Window --> Vérifier le language du systeme du joueur
-if user_platform == 'Windows':
-    os_language = OsLanguage()
-    os_language.check_user_default_language()
+#Classe pour vérifier le systeme d'exploitation
+os_language = OsLanguage()
+os_language.check_user_os()
 
 #Générer la fenetre du jeu
 pygame.display.set_caption("Shooter Game")
