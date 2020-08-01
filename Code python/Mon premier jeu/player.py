@@ -62,13 +62,24 @@ class Player(pygame.sprite.Sprite):
                                            pygame.image.load('assets/wizard/Stand/8.png'),
                                            pygame.image.load('assets/wizard/Stand/9.png')]
         self.player_stand = []
+        self.all_raw_image_player_dead = [pygame.image.load('assets/wizard/Die/0.png'),
+                                          pygame.image.load('assets/wizard/Die/1.png'),
+                                          pygame.image.load('assets/wizard/Die/2.png'),
+                                          pygame.image.load('assets/wizard/Die/3.png'),
+                                          pygame.image.load('assets/wizard/Die/4.png'),
+                                          pygame.image.load('assets/wizard/Die/5.png'),
+                                          pygame.image.load('assets/wizard/Die/6.png'),
+                                          pygame.image.load('assets/wizard/Die/7.png'),
+                                          pygame.image.load('assets/wizard/Die/8.png'),
+                                          pygame.image.load('assets/wizard/Die/9.png')]
+        self.player_dead = []
 
     def damage(self, amount):
         if self.health > 0:
             self.health -= amount
-        else:
-            #si le joueur n'a plus de point de vie
-            self.game.reinitialize_game()
+        # else:
+        #     #si le joueur n'a plus de point de vie
+        #     self.game.reinitialize_game()
 
     def update_health_bar(self, surface):
         #dessiner notre bar de vie
@@ -115,16 +126,18 @@ class Player(pygame.sprite.Sprite):
             self.player_jump.append(pygame.transform.scale(image, (250, 200)))
         for image in self.all_raw_image_player_stand:
             self.player_stand.append(pygame.transform.scale(image, (250, 200)))
+        for image in self.all_raw_image_player_dead:
+            self.player_dead.append(pygame.transform.scale(image, (250, 200)))
 
     def animate_player_stand(self, screen):
-        self.image = self.player_stand[self.game.frame_counter // 3]
+        self.image = self.player_stand[self.game.frame_counter_player_stand // 3]
         if self.isLeft:
             self.image = pygame.transform.flip(self.image, 1, 0)
         screen.blit(self.image, (self.rect.x, self.rect.y))
-        if self.game.frame_counter == 27:
-            self.game.frame_counter = 0
+        if self.game.frame_counter_player_stand == 27:
+            self.game.frame_counter_player_stand = 0
         else:
-            self.game.frame_counter += 1
+            self.game.frame_counter_player_stand += 1
 
     def animate_player_deplacement(self, screen):
         self.image = self.player_walk[self.walkCounter // 3]
@@ -145,6 +158,18 @@ class Player(pygame.sprite.Sprite):
             self.jumpCount = 0
         else:
             self.jumpCount += 1
+
+    def animate_player_dead(self, screen):
+        self.image = self.player_dead[self.game.frame_counter_player_dead // 3]
+        if self.isLeft:
+            self.image = pygame.transform.flip(self.image, 1, 0)
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+        if self.game.frame_counter_player_dead == 27:
+            sound_game_over = pygame.mixer.Sound('assets/sounds/game_over.wav')
+            sound_game_over.play()
+            self.game.reinitialize_game()
+        else:
+            self.game.frame_counter_player_dead += 1
 
     # def initialise_player_image(self, screen):
     #     self.image = pygame.image.load('assets/wizard.png')

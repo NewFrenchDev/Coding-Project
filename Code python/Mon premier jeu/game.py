@@ -27,7 +27,8 @@ class Game:
         self.score_int = 0
         self.score = 'SCORE : 0'
         #compteur de frame
-        self.frame_counter = 0
+        self.frame_counter_player_stand = 0
+        self.frame_counter_player_dead = 0
 
     def update_score(self):
         self.score = "SCORE : {}".format(self.score_int)
@@ -44,6 +45,8 @@ class Game:
         self.player.health = self.player.max_health
         self.score_int = 0
         self.update_score()
+        self.frame_counter_player_stand = 0
+        self.frame_counter_player_dead = 0
         self.is_playing = False
 
     def update(self, screen):
@@ -99,7 +102,10 @@ class Game:
                 self.player.animate_player_jump(screen)
                 self.player.jump()
             else:
-                self.player.animate_player_stand(screen)
+                if self.player.health > 0:
+                    self.player.animate_player_stand(screen)
+                else:
+                    self.player.animate_player_dead(screen)
                 # self.player.initialise_player_image(screen)
 
     def spawn_monster(self):
