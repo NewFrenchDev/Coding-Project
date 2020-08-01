@@ -70,7 +70,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 game.player.launch_projectile()
 
-            elif event.key == pygame.K_UP:
+            elif event.key == (pygame.K_UP or pygame.K_z):
                 game.player.isJump = True
 
         elif event.type == pygame.KEYUP:

@@ -10,12 +10,14 @@ class Monster(pygame.sprite.Sprite):
         self.max_health = 100
         self.attack = 0.3
         self.velocity = random.randint(1, 3)
+        self.isAlien = False
         self.image = pygame.image.load('assets/mummy.png')
         self.rect = self.image.get_rect()
         self.rect.x = 1000 + random.randint(0, 300)
         self.rect.y = 540
 
         #animation deplacement des momies
+        self.from_Left = False
         self.all_movement = [pygame.image.load('assets/mummy/mummy1.png'),
                              pygame.image.load('assets/mummy/mummy2.png'),
                              pygame.image.load('assets/mummy/mummy3.png'),
@@ -44,14 +46,18 @@ class Monster(pygame.sprite.Sprite):
 
     def remove(self):
         self.game.all_monster.remove(self)
-        self.game.score += 100
-        self.game.monster_dead = True
+        self.game.update_score()
 
     def damage(self, amount):
         #infliger des dégâts
         self.health -= amount
         #vérifier si le monstre n'a plus de vie
-        if self.health <= 0 or self.rect.x < 0:
+        if self.health <= 0:
+            if self.isAlien:
+                self.game.score_int += 300
+            else:
+                self.game.score_int += 100
+            self.game.update_score()
             self.remove()
             self.rect.x = 1000 + random.randint(0, 300)
             self.velocity = random.randint(1, 3)
@@ -67,6 +73,14 @@ class Monster(pygame.sprite.Sprite):
         if not self.game.check_collision(self, self.game.all_players):
             self.animate_monster(screen)
             self.rect.x -= self.velocity
+            if self.rect.x < -600 or self.rect.x > 1400:
+                if self.isAlien:
+                    self.game.score_int -= 300
+                else:
+                    self.game.score_int -= 100
+                self.game.update_score()
+                self.remove()
+                self.game.spawn_monster()
         #si le monstre est en collision avec le joueur
         else:
             #infliger des dégats
@@ -74,6 +88,8 @@ class Monster(pygame.sprite.Sprite):
 
     def animate_monster(self, screen):
         self.image = self.all_movement[self.walkCounter // 3]
+        if self.from_Left:
+            self.image = pygame.transform.flip(self.image, 1, 0)
         screen.blit(self.image, (self.rect.x, self.rect.y))
         if self.walkCounter == 23:
             self.walkCounter = 0

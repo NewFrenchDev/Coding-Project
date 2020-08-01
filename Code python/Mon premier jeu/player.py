@@ -36,6 +36,7 @@ class Player(pygame.sprite.Sprite):
                                           pygame.image.load('assets/wizard/Walk/9.png')]
         self.player_walk = []
         self.walkCounter = 0
+        self.isLeft = False
         self.jumpCount = 0
         self.all_raw_image_player_jump = [pygame.image.load('assets/wizard/Jump/0.png'),
                                           pygame.image.load('assets/wizard/Jump/1.png'),
@@ -50,6 +51,17 @@ class Player(pygame.sprite.Sprite):
         self.player_jump = []
         self.isJump = False
         self.jumpCounter = 10
+        self.all_raw_image_player_stand = [pygame.image.load('assets/wizard/Stand/0.png'),
+                                           pygame.image.load('assets/wizard/Stand/1.png'),
+                                           pygame.image.load('assets/wizard/Stand/2.png'),
+                                           pygame.image.load('assets/wizard/Stand/3.png'),
+                                           pygame.image.load('assets/wizard/Stand/4.png'),
+                                           pygame.image.load('assets/wizard/Stand/5.png'),
+                                           pygame.image.load('assets/wizard/Stand/6.png'),
+                                           pygame.image.load('assets/wizard/Stand/7.png'),
+                                           pygame.image.load('assets/wizard/Stand/8.png'),
+                                           pygame.image.load('assets/wizard/Stand/9.png')]
+        self.player_stand = []
 
     def damage(self, amount):
         if self.health > 0:
@@ -65,9 +77,14 @@ class Player(pygame.sprite.Sprite):
 
     def launch_projectile(self):
         #Creer une nouvelle instance de la classe Projectile
-        self.all_projectiles.add(Projectile(self))
-        effect = pygame.mixer.Sound('assets/sounds/tir.wav')
-        effect.play()
+        projectile = Projectile(self)
+        if self.isLeft:
+            projectile.velocity = projectile.velocity * -1
+            projectile.rect.x = self.rect.x + 80
+        self.all_projectiles.add(projectile)
+        if self.game.is_playing:
+            effect = pygame.mixer.Sound('assets/sounds/tir.wav')
+            effect.play()
 
     def move_right(self):
         #si le joueur n'est pas en collision avec un monstre
@@ -96,9 +113,23 @@ class Player(pygame.sprite.Sprite):
             self.player_walk.append(pygame.transform.scale(image, (250, 200)))
         for image in self.all_raw_image_player_jump:
             self.player_jump.append(pygame.transform.scale(image, (250, 200)))
+        for image in self.all_raw_image_player_stand:
+            self.player_stand.append(pygame.transform.scale(image, (250, 200)))
+
+    def animate_player_stand(self, screen):
+        self.image = self.player_stand[self.game.frame_counter // 3]
+        if self.isLeft:
+            self.image = pygame.transform.flip(self.image, 1, 0)
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+        if self.game.frame_counter == 27:
+            self.game.frame_counter = 0
+        else:
+            self.game.frame_counter += 1
 
     def animate_player_deplacement(self, screen):
         self.image = self.player_walk[self.walkCounter // 3]
+        if self.isLeft:
+            self.image = pygame.transform.flip(self.image, 1, 0)
         screen.blit(self.image, (self.rect.x, self.rect.y))
         if self.walkCounter == 27:
             self.walkCounter = 0
@@ -107,14 +138,18 @@ class Player(pygame.sprite.Sprite):
 
     def animate_player_jump(self, screen):
         self.image = self.player_jump[self.jumpCount // 3]
+        if self.isLeft:
+            self.image = pygame.transform.flip(self.image, 1, 0)
         screen.blit(self.image, (self.rect.x, self.rect.y))
         if self.jumpCount == 27:
             self.jumpCount = 0
         else:
             self.jumpCount += 1
 
-    def initialise_player_image(self, screen):
-        self.image = pygame.image.load('assets/wizard.png')
-        self.image = pygame.transform.scale(self.image, (250, 200))
-        screen.blit(self.image, (self.rect.x, self.rect.y))
+    # def initialise_player_image(self, screen):
+    #     self.image = pygame.image.load('assets/wizard.png')
+    #     self.image = pygame.transform.scale(self.image, (250, 200))
+    #     if self.isLeft:
+    #         self.image = pygame.transform.flip(self.image, 1, 0)
+    #     screen.blit(self.image, (self.rect.x, self.rect.y))
 

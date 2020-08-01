@@ -2,6 +2,7 @@ from player import Player
 from monster import Monster
 from alien import Alien
 import pygame
+import random
 pygame.init()
 
 class Game:
@@ -21,16 +22,15 @@ class Game:
         self.monster = Monster(self)
         #génération groupe de monstre
         self.all_monster = pygame.sprite.Group()
-        # générer un alien
-        self.alien = Alien(self)
-        # génération groupe de monstre
-        self.all_alien = pygame.sprite.Group()
         #Score du joueur
-        self.score = 0
-        #Indication de la mort d'un monstre
-        self.monster_dead = False
-        #delimitation du sol
-        self.ground = 0
+        self.my_font = pygame.font.SysFont("Comic", 32)
+        self.score_int = 0
+        self.score = 'SCORE : 0'
+        #compteur de frame
+        self.frame_counter = 0
+
+    def update_score(self):
+        self.score = "SCORE : {}".format(self.score_int)
 
     def start(self):
         effect = pygame.mixer.Sound('assets/sounds/clic.wav')
@@ -38,16 +38,17 @@ class Game:
         self.is_playing = True
         self.spawn_monster()
         self.spawn_monster()
-        # self.spawn_alien()
 
     def reinitialize_game(self):
         self.all_monster = pygame.sprite.Group()
-        # self.all_alien = pygame.sprite.Group()
         self.player.health = self.player.max_health
+        self.score_int = 0
+        self.update_score()
         self.is_playing = False
 
-
     def update(self, screen):
+        score_display = self.my_font.render(self.score, 1, (255, 255, 0))
+        screen.blit(score_display, (100, 100))
 
         # appliquer l'image du joueur
         screen.blit(self.player.image, self.player.rect)
@@ -64,20 +65,15 @@ class Game:
             monster.forward(screen)
             monster.update_health_bar(screen)
 
-        #deplacement des aliens
-        # for alien in self.all_alien:
-        #     alien.forward(screen)
-        #     alien.update_health_bar(screen)
-
         # appliquer l'ensemble des images du groupe de monstre
         self.all_monster.draw(screen)
-        # self.all_alien.draw(screen)
 
         # appliquer l'ensemble des images du groupe de projectiles
         self.player.all_projectiles.draw(screen)
 
         # vérifier la direction du joueur
         if (self.pressed.get(pygame.K_RIGHT) or self.pressed.get(pygame.K_d)) and self.player.rect.x + self.player.rect.width < screen.get_width():
+            self.player.isLeft = False
             # permet le saut si la touche up ou z est pressé
             if self.player.isJump:
                 self.player.animate_player_jump(screen)
@@ -88,6 +84,7 @@ class Game:
             #Déplacement du joueur
             self.player.move_right()
         elif (self.pressed.get(pygame.K_LEFT) or self.pressed.get(pygame.K_q)) and self.player.rect.x > 0:
+            self.player.isLeft = True
             # permet le saut si la touche up ou z est pressé
             if self.player.isJump:
                 self.player.animate_player_jump(screen)
@@ -102,17 +99,24 @@ class Game:
                 self.player.animate_player_jump(screen)
                 self.player.jump()
             else:
-                self.player.initialise_player_image(screen)
+                self.player.animate_player_stand(screen)
+                # self.player.initialise_player_image(screen)
 
     def spawn_monster(self):
+        mummy_appears = random.randint(0, 1)
+        if mummy_appears:
             self.monster = Monster(self)
-            self.all_monster.add(self.monster)
-            #réinitialiser l'indicateur de monstre mort après apparition d'un autre monstre
-            self.monster_dead = False
-
-    def spawn_alien(self):
-            self.alien = Alien(self)
-            self.all_alien.add(self.alien)
+        else:
+            self.monster = Alien(self)
+            self.monster.transform_alien_image_movement()
+        monster_from_Left = random.randint(0, 1)
+        if monster_from_Left:
+            self.monster.from_Left = True
+            self.monster.velocity = self.monster.velocity * -1
+            self.monster.rect.x = 0 - random.randint(0, 300)
+        else:
+            self.monster.from_Left = False
+        self.all_monster.add(self.monster)
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
