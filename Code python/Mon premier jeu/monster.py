@@ -16,7 +16,6 @@ class Monster(pygame.sprite.Sprite):
         self.rect.y = 540
 
         #animation deplacement des momies
-        # animation mouvement du joueur
         self.all_movement = [pygame.image.load('assets/mummy/mummy1.png'),
                              pygame.image.load('assets/mummy/mummy2.png'),
                              pygame.image.load('assets/mummy/mummy3.png'),
@@ -52,7 +51,7 @@ class Monster(pygame.sprite.Sprite):
         #infliger des dégâts
         self.health -= amount
         #vérifier si le monstre n'a plus de vie
-        if self.health <= 0:
+        if self.health <= 0 or self.rect.x < 0:
             self.remove()
             self.rect.x = 1000 + random.randint(0, 300)
             self.velocity = random.randint(1, 3)

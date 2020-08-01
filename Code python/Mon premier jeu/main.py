@@ -31,7 +31,7 @@ play_button_rect.y = math.ceil(screen.get_height()/2)
 #charger le jeu
 game = Game(os_language)
 
-game.player.update_player_image_movement()
+game.player.transform_player_image_movement()
 
 running = True
 
@@ -45,7 +45,7 @@ while running:
     if game.is_playing:
         #déclencher la partie
         game.update(screen)
-        print(os_language.user_default_language)
+
     #vérifier si notre jeu n'a pas commencé
     else:
         #créer l'écran de bienvenue
@@ -61,7 +61,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-            print("La fenêtre s'est fermée")
+
         #detecter si un joueur lache une touche du clavier
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
@@ -71,7 +71,7 @@ while running:
                 game.player.launch_projectile()
 
             elif event.key == pygame.K_UP:
-                game.player.jump(screen)
+                game.player.isJump = True
 
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
@@ -80,3 +80,5 @@ while running:
             #verification si la souris clique sur le bouton jouer
             if play_button_rect.collidepoint(event.pos):
                 game.start()
+
+    pygame.time.delay(10)

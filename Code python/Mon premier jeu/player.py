@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 20
-        self.velocity = 5
+        self.velocity = 10
         #Image du joueur
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/wizard.png')
@@ -36,25 +36,27 @@ class Player(pygame.sprite.Sprite):
                                           pygame.image.load('assets/wizard/Walk/9.png')]
         self.player_walk = []
         self.walkCounter = 0
-        self.jump_movement = [pygame.image.load('assets/wizard/Jump/0.png'),
-                              pygame.image.load('assets/wizard/Jump/1.png'),
-                              pygame.image.load('assets/wizard/Jump/2.png'),
-                              pygame.image.load('assets/wizard/Jump/3.png'),
-                              pygame.image.load('assets/wizard/Jump/4.png'),
-                              pygame.image.load('assets/wizard/Jump/5.png'),
-                              pygame.image.load('assets/wizard/Jump/6.png'),
-                              pygame.image.load('assets/wizard/Jump/7.png'),
-                              pygame.image.load('assets/wizard/Jump/8.png'),
-                              pygame.image.load('assets/wizard/Jump/9.png')]
-        self.all_jump_movement = []
-        self.jumpCounter = 0
+        self.jumpCount = 0
+        self.all_raw_image_player_jump = [pygame.image.load('assets/wizard/Jump/0.png'),
+                                          pygame.image.load('assets/wizard/Jump/1.png'),
+                                          pygame.image.load('assets/wizard/Jump/2.png'),
+                                          pygame.image.load('assets/wizard/Jump/3.png'),
+                                          pygame.image.load('assets/wizard/Jump/4.png'),
+                                          pygame.image.load('assets/wizard/Jump/5.png'),
+                                          pygame.image.load('assets/wizard/Jump/6.png'),
+                                          pygame.image.load('assets/wizard/Jump/7.png'),
+                                          pygame.image.load('assets/wizard/Jump/8.png'),
+                                          pygame.image.load('assets/wizard/Jump/9.png')]
+        self.player_jump = []
+        self.isJump = False
+        self.jumpCounter = 10
 
     def damage(self, amount):
         if self.health > 0:
             self.health -= amount
         else:
             #si le joueur n'a plus de point de vie
-            self.game.game_over()
+            self.game.reinitialize_game()
 
     def update_health_bar(self, surface):
         #dessiner notre bar de vie
@@ -64,6 +66,8 @@ class Player(pygame.sprite.Sprite):
     def launch_projectile(self):
         #Creer une nouvelle instance de la classe Projectile
         self.all_projectiles.add(Projectile(self))
+        effect = pygame.mixer.Sound('assets/sounds/tir.wav')
+        effect.play()
 
     def move_right(self):
         #si le joueur n'est pas en collision avec un monstre
@@ -71,33 +75,27 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.velocity
 
     def move_left(self):
-        self.rect.x -= self.velocity
+        if not self.game.check_collision(self, self.game.all_monster):
+            self.rect.x -= self.velocity
 
-    def jump(self, screen):
-        while self.jumpCounter < 28:
-            self.image = self.all_jump_movement[self.jumpCounter // 3]
-            screen.blit(self.image, (self.rect.x, self.rect.y))
-            self.rect.y -= self.velocity
-            pygame.time.delay(10)
-            if self.jumpCounter == 27:
-                self.jumpCounter = 0
-                self.rect.y = 500
-                self.initialise_player_image(screen)
-                break
-            else:
-                self.jumpCounter += 1
+    def jump(self):
+        if self.jumpCounter >= -10:
+            neg = 1
+            if self.jumpCounter < 0:
+                neg = -1
+            self.rect.y -= (self.jumpCounter ** 2) * 0.5 * neg
+            self.jumpCounter -= 1
+        else:
+            self.isJump = False
+            self.jumpCounter = 10
+            #réinitialisation du positionnement du joueur
+            self.rect.y = 500
 
-    def gravity(self):
-        self.movey += 2
-        if self.rect.y > 720 and self.movey >= 0:
-            self.movey = 0
-            self.rect.y = 720 - 64
-
-    def update_player_image_movement(self):
+    def transform_player_image_movement(self):
         for image in self.all_raw_image_player_walk:
             self.player_walk.append(pygame.transform.scale(image, (250, 200)))
-        for image in self.jump_movement:
-            self.all_jump_movement.append(pygame.transform.scale(image, (250, 200)))
+        for image in self.all_raw_image_player_jump:
+            self.player_jump.append(pygame.transform.scale(image, (250, 200)))
 
     def animate_player_deplacement(self, screen):
         self.image = self.player_walk[self.walkCounter // 3]
@@ -106,6 +104,14 @@ class Player(pygame.sprite.Sprite):
             self.walkCounter = 0
         else:
             self.walkCounter += 1
+
+    def animate_player_jump(self, screen):
+        self.image = self.player_jump[self.jumpCount // 3]
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+        if self.jumpCount == 27:
+            self.jumpCount = 0
+        else:
+            self.jumpCount += 1
 
     def initialise_player_image(self, screen):
         self.image = pygame.image.load('assets/wizard.png')
