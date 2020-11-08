@@ -89,13 +89,13 @@ class Player(pygame.sprite.Sprite):
     def launch_projectile(self):
         #Creer une nouvelle instance de la classe Projectile
         projectile = Projectile(self)
+        if self.game.is_playing:
+            effect = pygame.mixer.Sound('assets/sounds/tir.wav')
+            effect.play()
         if self.isLeft:
             projectile.velocity = projectile.velocity * -1
             projectile.rect.x = self.rect.x + 80
         self.all_projectiles.add(projectile)
-        if self.game.is_playing:
-            effect = pygame.mixer.Sound('assets/sounds/tir.wav')
-            effect.play()
 
     def move_right(self):
         #si le joueur n'est pas en collision avec un monstre
@@ -170,11 +170,4 @@ class Player(pygame.sprite.Sprite):
             self.game.reinitialize_game()
         else:
             self.game.frame_counter_player_dead += 1
-
-    # def initialise_player_image(self, screen):
-    #     self.image = pygame.image.load('assets/wizard.png')
-    #     self.image = pygame.transform.scale(self.image, (250, 200))
-    #     if self.isLeft:
-    #         self.image = pygame.transform.flip(self.image, 1, 0)
-    #     screen.blit(self.image, (self.rect.x, self.rect.y))
 
