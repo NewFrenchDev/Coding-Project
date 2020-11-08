@@ -51,13 +51,17 @@ class Quizz:
         except:
             self.answer = ""
 
+    def adjust_solution_format(self):
+        adjusted_solution = self.solution[0].upper() + self.solution[1:].lower()
+        return adjusted_solution
+
     def answer_the_question(self):
         answer = input(self.question)
         self.correct_answer_format(answer)
         self.try_counter += 1
 
     def win_or_lose(self):
-        if self.answer == self.solution:
+        if self.answer == self.adjust_solution_format():
             print('Good job! This is the right answer')
             print('\n')
             self.running = False
@@ -69,6 +73,7 @@ class Quizz:
                 self.running = False
                 self.game_running = False
                 print(":( You have lost the game\n")
+                print(f"Pour ta culture la réponse était {self.solution}")
 
     def launch_quizz(self):
         if self.game_running:
