@@ -1,5 +1,12 @@
 import random
 
+
+def re_encode(string_to_re_encode):
+    string_reencoded = string_to_re_encode.encode('latin-1')
+    string_decoded = string_reencoded.decode('utf-8')
+    return string_decoded
+
+
 class Quizz:
 
     def __init__(self, question="", solution="", answer="", game_running=True):
@@ -35,8 +42,8 @@ class Quizz:
                 else:
                     solution += carac
         f.close()
-        self.define_question(question)
-        self.define_solution(solution)
+        self.define_question(re_encode(question))
+        self.define_solution(re_encode(solution))
 
     def correct_answer_format(self, answer_to_correct):
         try:
