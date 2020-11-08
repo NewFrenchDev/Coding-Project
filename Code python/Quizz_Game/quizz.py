@@ -80,13 +80,3 @@ class Quizz:
             while self.running:
                 self.answer_the_question()
                 self.win_or_lose()
-
-    def relaunch_game(self):
-        restart = input("Do you want to retry? Y/N")
-        if restart in ['Yes', 'Y', 'y']:
-            self.game_running = True
-        elif restart in ['No', 'N', 'n']:
-            print("See you soon!")
-        else:
-            print('Incorrect entry...')
-            self.relaunch_game()
