@@ -1,0 +1,9 @@
+Quelle est la capitale de l'Allemagne?&Berlin
+Quelle est la capitale de Bulgarie?&Sofia
+Quelle est la capitale de France?&Paris
+Quel est le prénom de Picasso?&Pablo
+Combien y a t'il de planètes dans notre galaxie?&8
+Combien vaut la vitesse du son en mètre par secondes (tronquer à l'entier)?&340
+Combien il y a t-il d'océans?&5
+Quel est le nom du président français en 2020?&Macron
+Que vaut x pour 5x - 10 = 20?&6

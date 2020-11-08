@@ -1,6 +1,7 @@
 from player import Player
 from monster import Monster
 from alien import Alien
+from os import path
 import pygame
 import random
 pygame.init()
@@ -106,7 +107,6 @@ class Game:
                     self.player.animate_player_stand(screen)
                 else:
                     self.player.animate_player_dead(screen)
-                # self.player.initialise_player_image(screen)
 
     def spawn_monster(self):
         mummy_appears = random.randint(0, 1)
