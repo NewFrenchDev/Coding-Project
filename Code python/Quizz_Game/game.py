@@ -6,10 +6,7 @@ class Game:
         self.running = True
         self.list_of_quizz = []
 
-    def get_game_stat(self):
-        return self.running
-
-    def choose_number_of_quizz(self, number):
+    def generate_a_number_of_quizz(self, number):
         for i in range(0, number):
             self.list_of_quizz.append(Quizz(self.running))
 
@@ -21,7 +18,7 @@ class Game:
                 break
             except:
                 print("You should try a number ;)")
-        self.choose_number_of_quizz(number_of_quizz)
+        self.generate_a_number_of_quizz(number_of_quizz)
         for quizz in self.list_of_quizz:
             quizz.select_random_quizz()
             quizz.launch_quizz()

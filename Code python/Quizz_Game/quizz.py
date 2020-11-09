@@ -45,23 +45,23 @@ class Quizz:
         self.define_question(re_encode(question))
         self.define_solution(re_encode(solution))
 
-    def correct_answer_format(self, answer_to_correct):
+    def rework_answer(self, answer_to_correct):
         try:
             self.answer = answer_to_correct[0].upper() + answer_to_correct[1:].lower()
         except:
             self.answer = ""
 
-    def adjust_solution_format(self):
+    def get_adjusted_solution(self):
         adjusted_solution = self.solution[0].upper() + self.solution[1:].lower()
         return adjusted_solution
 
     def answer_the_question(self):
         answer = input(self.question)
-        self.correct_answer_format(answer)
+        self.rework_answer(answer)
         self.try_counter += 1
 
     def win_or_lose(self):
-        if self.answer == self.adjust_solution_format():
+        if self.answer == self.get_adjusted_solution():
             print('Good job! This is the right answer')
             print('\n')
             self.running = False
@@ -80,13 +80,3 @@ class Quizz:
             while self.running:
                 self.answer_the_question()
                 self.win_or_lose()
-
-    def relaunch_game(self):
-        restart = input("Do you want to retry? Y/N")
-        if restart in ['Yes', 'Y', 'y']:
-            self.game_running = True
-        elif restart in ['No', 'N', 'n']:
-            print("See you soon!")
-        else:
-            print('Incorrect entry...')
-            self.relaunch_game()
