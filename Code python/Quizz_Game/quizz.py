@@ -92,9 +92,9 @@ class Quizz:
             self.answer = self.all_answer[0][3:]
         elif self.answer in ["B", "b"]:
             self.answer = self.all_answer[1][3:]
-        elif self.answer in ["C", "c"] and len(self.all_answer) > 2:
+        elif self.answer in ["C", "c"] and self.all_answer[2] != "":
             self.answer = self.all_answer[2][3:]
-        elif self.answer in ["D", "d"] and len(self.all_answer) > 3:
+        elif self.answer in ["D", "d"] and self.all_answer[3] != "":
             self.answer = self.all_answer[3][3:]
         self.rework_answer(self.answer)
         self.try_counter += 1
