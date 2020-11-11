@@ -81,16 +81,12 @@ class Quizz:
         self.answer = input()
         if self.answer in ["A", "a"]:
             self.answer = self.answer_A[3:]
-            print(self.answer)
         elif self.answer in ["B", "b"]:
             self.answer = self.answer_B[3:]
-            print(self.answer)
         elif self.answer in ["C", "c"]:
             self.answer = self.answer_C[3:]
-            print(self.answer)
         elif self.answer in ["D", "d"]:
             self.answer = self.answer_D[3:]
-            print(self.answer)
         self.rework_answer(self.answer)
         self.try_counter += 1
 
