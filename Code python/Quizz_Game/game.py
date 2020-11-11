@@ -45,14 +45,14 @@ class Game:
         self.relaunch_game()
 
     def relaunch_game(self):
-        print("\nDo you want to retry? Y/N")
+        print("\nRelancer le jeu? Y/N")
         restart = input()
         if restart in ['Yes', 'Y', 'y']:
             self.running = True
             self.create_quizz_files()
             self.launch_the_game()
         elif restart in ['No', 'N', 'n']:
-            print("See you soon!")
+            print("A bientôt!")
         else:
-            print('Incorrect entry...')
+            print("Je n'ai pas compris...")
             self.relaunch_game()
