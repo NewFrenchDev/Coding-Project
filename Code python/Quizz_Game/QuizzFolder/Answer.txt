@@ -5,7 +5,6 @@ Pedro Almodovar//Pablo Trapero//Guillermo del Toro//Woody Allen
 UB40//Jim Morrison//Eric Clapton//Bob Marley
 L'Allemagne//L'Italie//Le Brésil//L'Argentine
 Venise//Vérone//Milan//Rome
-Une marâtre//Une godiche//Une chenapan//Une jocrisse
 Apollon//Hermès//Arès//Hadès
 Le léopard//Le mgbobe//Le chevreuil//Le springbok
 Feignons !//Feins !//Feignez !//Feindez !
@@ -28,11 +27,9 @@ L'accent grave//L'accent aigu//L'accent circonflexe//Aucun accent
 365//366//364//363
 Un chien//Un cerf//Un oiseau//Un lapin
 Marcel Proust//Émile Zola//Victor Hugo//Alphonse de Lamartine
-756 ap. J.-C.//800 ap. J.-C.//787 ap. J.-C.//843 ap. J.-C.
 D'Alembert//Mirabeau//Rousseau//Chateaubriand
 Ingrid Bergman//Greta Garbo//Claudia Cardinale//Lauren Bacall
 Hannibal Barca//Jules César//Vercingétorix//Brennos
-Du mouton//Du vison//Du lapin//De la chèvre
 Alexandrie//Rhodes//Moscou//Istanbul
 Égypte//Iran//Jordanie//Irak
 La Suisse//Les Pays-Bas//La Belgique//L'Angleterre
