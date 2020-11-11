@@ -16,20 +16,25 @@ class Game:
     def create_quizz_files(self):
         self.quizz_files.create_quizz_files()
 
-    def launch_the_game(self):
-        trying = True
-        while trying:
+    def choose_quizz_number_for_the_game(self):
+        no_correct_answer = True
+        while no_correct_answer:
             try:
-                print("Choose the number of quizz to answer : ")
+                print("Choisissez le nombre de question pour ce quizz : ")
                 number_of_quizz = int(input())
                 if number_of_quizz > self.quizz_files.get_total_number_of_question():
-                    print(f"There are only {self.quizz_files.get_total_number_of_question()} questions")
-                    continue
+                    print(f"Il y a seulement {self.quizz_files.get_total_number_of_question()} questions")
+                elif number_of_quizz < 1:
+                    print("Oh vous ne voulez donc pas jouer :(")
                 else:
-                    break
-            except:
-                print("You should try a number ;)")
-        self.generate_a_number_of_quizz(number_of_quizz)
+                    no_correct_answer = False
+            except ValueError:
+                print("Essaie plutôt un nombre ;)")
+        return number_of_quizz
+
+    def launch_the_game(self):
+        number_of_quizz_to_generate = self.choose_quizz_number_for_the_game()
+        self.generate_a_number_of_quizz(number_of_quizz_to_generate)
         for quizz in self.list_of_quizz:
             quizz.create_random_quizz()
             quizz.launch_quizz()

@@ -1,6 +1,7 @@
 import random
 import os
 
+#Need this for python 3.9
 def re_encode(string_to_re_encode):
     string_reencoded = string_to_re_encode.encode('latin-1')
     string_decoded = string_reencoded.decode('utf-8')
@@ -65,10 +66,7 @@ class Quizz:
             os.rename(self.dumb_path, path)
 
     def rework_answer(self, answer_to_correct):
-        try:
-            self.answer = answer_to_correct.capitalize()
-        except:
-            self.answer = ""
+        self.answer = answer_to_correct.capitalize()
 
     def get_adjusted_solution(self):
         adjusted_solution = self.solution.capitalize()
@@ -92,18 +90,18 @@ class Quizz:
 
     def win_or_lose(self):
         if self.answer == self.get_adjusted_solution():
-            print('Good job! This is the right answer')
+            print("Bien joué! C'est la bonne réponse!")
             print('\n')
             self.delete_line_used()
             self.running = False
         else:
-            print('Too bad! that is not the correct answer')
+            print("Dommage! Ce n'est pas la bonne réponse!")
             try_left = 3 - self.try_counter
-            print("Try left : {}".format(try_left))
+            print("Essai restant : {}".format(try_left))
             if self.try_counter == 3:
                 self.running = False
                 self.game_running = False
-                print(":( You have lost the game\n")
+                print(":( Tu as perdu!\n")
                 print(f"La réponse était {self.solution}")
 
     def launch_quizz(self):
