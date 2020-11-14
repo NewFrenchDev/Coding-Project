@@ -5,9 +5,12 @@ class Game:
 
     def __init__(self):
         self.quizz_files = QuizzFile()
-        self.running = True
+        self.running = False
         self.list_of_quizz = []
         self.create_quizz_files()
+
+    def start(self):
+        self.running = True
 
     def generate_a_number_of_quizz(self, number):
         for i in range(0, number):
@@ -33,8 +36,8 @@ class Game:
         return number_of_quizz
 
     def launch_the_game(self):
-        number_of_quizz_to_generate = self.choose_quizz_number_for_the_game()
-        self.generate_a_number_of_quizz(number_of_quizz_to_generate)
+        # number_of_quizz_to_generate = self.choose_quizz_number_for_the_game()
+        self.generate_a_number_of_quizz(20)
         for quizz in self.list_of_quizz:
             quizz.create_random_quizz()
             quizz.launch_quizz()
