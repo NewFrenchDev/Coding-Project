@@ -9,8 +9,10 @@ class Game:
         self.quizz_files = QuizzFile()
         self.running = False
         self.list_of_quizz = []
+        self.index_list_quizz = 0
         self.create_quizz_files()
-        # self.question_display = pygame.
+        self.stay_on_the_quizz = False
+        self.question_to_display = ""
         # Initialize buttons
         self.width = 1080
         self.height = 720
@@ -51,7 +53,7 @@ class Game:
         self.generate_a_number_of_quizz(50)
         for quizz in self.list_of_quizz:
             quizz.create_random_quizz()
-            quizz.launch_quizz()
+            # quizz.launch_quizz()
             if not quizz.game_running:
                 self.running = False
                 self.list_of_quizz.clear()
@@ -76,6 +78,13 @@ class Game:
         self.button_B.draw(screen, (0, 0, 0))
         self.button_C.draw(screen, (0, 0, 0))
         self.button_D.draw(screen, (0, 0, 0))
+
+        if not self.stay_on_the_quizz:
+            self.list_of_quizz[self.index_list_quizz].create_random_quizz()
+            self.get_question()
+            self.get_propositions()
+
+            self.stay_on_the_quizz = True
 
     def initialize_buttons(self, screen, text_a="A", text_b="B", text_c="C", text_d="D"):
         self.button_A = Button(self.button_A.color, x=self.width / 20, y=self.height / 2, width=400,
@@ -117,4 +126,19 @@ class Game:
             self.button_D.color = (255, 255, 255)
         else:
             self.button_D.color = (133, 133, 133)
+
+    def next_question(self):
+        self.stay_on_the_quizz = False
+        self.index_list_quizz += 1
+
+    def get_question(self):
+        if self.list_of_quizz:
+            self.question_to_display = self.list_of_quizz[self.index_list_quizz].question
+
+    def get_propositions(self):
+        if self.list_of_quizz:
+            self.button_A.text = self.list_of_quizz[self.index_list_quizz].all_answer[0]
+            self.button_B.text = self.list_of_quizz[self.index_list_quizz].all_answer[1]
+            self.button_C.text = self.list_of_quizz[self.index_list_quizz].all_answer[2]
+            self.button_D.text = self.list_of_quizz[self.index_list_quizz].all_answer[3]
 
