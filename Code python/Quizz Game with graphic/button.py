@@ -11,6 +11,7 @@ class Button(pygame.Rect):
         self.height = height
         self.text = text
         self.action = action
+        self.button_pressed = False
 
     def draw(self, screen, outline=None):
         if outline:
@@ -30,13 +31,18 @@ class Button(pygame.Rect):
 
         return False
 
-    def click_on_button(self):
-        mouse = pygame.mouse.get_pos()
+    def click_on_button(self, screen):
+        pos = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
-        if self.x + self.width > mouse[0] > self.x and self.y + self.height > mouse[1] > self.y:
+        if self.is_over(pos):
             if click[0] == 1:
-                self.action()
+                self.button_pressed = True
+                self.display_proposition(screen)
 
     def display(self):
         print(f"Button {self.text} pressed")
+
+    def display_proposition(self, screen, text="Test"):
+        self.text = text
+        self.draw(screen, outline=(0, 0, 0))
