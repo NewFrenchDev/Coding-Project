@@ -1,5 +1,6 @@
 from quizz import Quizz
 from quizz_file import QuizzFile
+from button import Button
 
 class Game:
 
@@ -59,3 +60,7 @@ class Game:
         else:
             print("Je n'ai pas compris...")
             self.relaunch_game()
+
+    # def update(self, screen, button_A, button_B, button_C, button_D):
+
+
