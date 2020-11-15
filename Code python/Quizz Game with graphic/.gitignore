@@ -1,1 +1,3 @@
-QuizzFolder/*.txt
+QuizzFolder
+__pycache__
+.idea
