@@ -53,6 +53,8 @@ class Interface:
 
         self.display_welcome_screen()
 
+        self.game.generate_a_number_of_quizz(50)
+
         running = True
         button_displayed = False
 
