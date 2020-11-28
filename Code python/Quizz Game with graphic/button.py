@@ -38,7 +38,6 @@ class Button(pygame.Rect):
         if self.is_over(pos):
             if click[0] == 1:
                 self.button_pressed = True
-                self.display_proposition(screen)
 
     def display(self):
         print(f"Button {self.text} pressed")
