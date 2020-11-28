@@ -49,12 +49,14 @@ class Interface:
 
     def running_game(self):
 
+        #Ecran de démarrage
         self.create_window()
-
         self.display_welcome_screen()
 
+        #Générer les quizz du jeu
         self.game.generate_a_number_of_quizz(50)
 
+        #Conditions de la boucle
         running = True
         button_displayed = False
 
