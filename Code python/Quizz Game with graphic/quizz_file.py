@@ -120,7 +120,7 @@ class QuizzFile:
                        "28//30//27//29\n"
                        "Que la mort accompagne.//Ne pas être convenable.//D'une couleur qui tire sur le blond.//Réservé aux seuls initiés.\n"
                        "Musset//Rimbaud//Zola//Hugo\n"
-                       "Parce que le héros chercherait à retrouver une ville perdue nommé Paris, au Texas.//Parce que le héros du film aurait été conçu à Paris, au Texas.//Parce que le personnage principal fait un voyage de Paris au Texas.\n"
+                       "Parce que le héros chercherait à retrouver une ville perdue nommé Paris, au Texas.//Parce que le héros du film aurait été conçu à Paris, au Texas.//Parce que le personnage principal fait un voyage de Paris au Texas.//Aucune des réponses\n"
                        "de droite nationaliste ?//de gauche anticapitaliste ?//de centre-droit ?//de centre-gauche ?\n"
                        "jabote.//feule.//zinzinule.//pupule.\n"
                        "Philippe Bunau-Varilla//Hubert Lyautey//Ferdinand de Lesseps//Gustave Eiffel\n"
