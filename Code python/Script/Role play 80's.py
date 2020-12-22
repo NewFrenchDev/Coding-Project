@@ -1,6 +1,7 @@
 import random
+import time
 
-###initialisation
+###Initialisation
 #ennemy
 ENNEMY_HEALTH = 50
 #hero
@@ -74,5 +75,5 @@ while running:
         print("Tu as gagné! \nFin du jeu.")
         break
 
-
+time.sleep(2)
 

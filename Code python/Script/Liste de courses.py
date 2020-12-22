@@ -1,18 +1,18 @@
+import time
+
 #Constante
-CHOICE = "Choisissez parmi les 5 options suivantes :"
-ADD = "1. Ajouter un élément à la liste de courses"
-REMOVE = "2. Retirer un élément à la liste de courses"
-DISPLAY = "3. Afficher les éléments de la liste de courses"
-CLEAR = "4. Vider la liste de courses"
-QUIT = "5. Quitter le programme"
+MENU = """Choisissez parmi les 5 options suivantes :
+1. Ajouter un élément à la liste de courses
+2. Retirer un élément à la liste de courses
+3. Afficher les éléments de la liste de courses
+4. Vider la liste de courses
+5. Quitter le programme"""
 
 #Initialisation
 liste = []
-running = True
 
-while running:
-    for element in [CHOICE, ADD, REMOVE, DISPLAY, CLEAR, QUIT]:
-        print(element)
+while True:
+    print(MENU)
     user_choice = input("Votre choix : ")
 
     if user_choice == "1":
@@ -37,11 +37,13 @@ while running:
         print("_________________________________________________________________________\n")
     elif user_choice == "4":
         liste.clear()
-        print("La liste à été vidée.")
+        print("La liste a été vidée.")
         print("_________________________________________________________________________\n")
     elif user_choice == "5":
-        running = False
         print("Au revoir!")
+        break
     else:
         print("Aucun choix sélectionné, veuillez entrer l'un des nombres correspondant aux options.")
         print("_________________________________________________________________________\n")
+
+time.sleep(1)
