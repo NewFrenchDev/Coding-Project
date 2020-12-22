@@ -1,4 +1,11 @@
+import json
+import os
 import time
+
+#Dossier du script
+CUR_DIR = os.path.dirname(__file__)
+#Emplacemen du fichier de sauvegarde
+FILE_PATH = f"{CUR_DIR}/liste.json"
 
 #Constante
 MENU = """Choisissez parmi les 5 options suivantes :
@@ -8,8 +15,13 @@ MENU = """Choisissez parmi les 5 options suivantes :
 4. Vider la liste de courses
 5. Quitter le programme"""
 
-#Initialisation
-liste = []
+#Vérifier si le fichier existe si oui récupérer son contenu
+#Sinon partir d'une liste vide
+if os.path.exists(FILE_PATH):
+    with open(FILE_PATH, "r") as f:
+        liste = json.load(f)
+else:
+    liste = []
 
 while True:
     print(MENU)
@@ -40,6 +52,8 @@ while True:
         print("La liste a été vidée.")
         print("_________________________________________________________________________\n")
     elif user_choice == "5":
+        with open(FILE_PATH, 'w') as f:
+            json.dump(liste, f, indent=4, ensure_ascii=False)
         print("Au revoir!")
         break
     else:

@@ -1,4 +1,5 @@
 import random
+import time
 
 #Initialisation
 running = True
@@ -41,3 +42,4 @@ while running:
         running = False
         
 print("Fin du jeu.")
+time.sleep(2)
