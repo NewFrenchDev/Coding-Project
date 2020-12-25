@@ -31,7 +31,6 @@ while True:
         element_added = input("Entrez le nom d'un élément à ajouter à la liste de courses : ")
         liste.append(element_added.capitalize())
         print(f"L'élément {element_added} a bien été ajouté à la liste.")
-        print("_________________________________________________________________________\n")
     elif user_choice == "2":
         element_removed = input("Entrez le nom d'un élément à retirer de la liste de courses : ")
         try:
@@ -39,18 +38,15 @@ while True:
             print(f"L'élément {element_removed} a bien été retiré de la liste.")
         except:
             print("L'élément n'est pas présent dans la liste.")
-        print("_________________________________________________________________________\n")
     elif user_choice == "3":
         if liste:
             for element in liste:
                 print(f'{liste.index(element) + 1}. {element}')
         else:
             print("Votre liste est vide.")
-        print("_________________________________________________________________________\n")
     elif user_choice == "4":
         liste.clear()
         print("La liste a été vidée.")
-        print("_________________________________________________________________________\n")
     elif user_choice == "5":
         with open(FILE_PATH, 'w') as f:
             json.dump(liste, f, indent=4, ensure_ascii=False)
@@ -58,6 +54,7 @@ while True:
         break
     else:
         print("Aucun choix sélectionné, veuillez entrer l'un des nombres correspondant aux options.")
-        print("_________________________________________________________________________\n")
+
+    print("_________________________________________________________________________\n")
 
 time.sleep(1)
