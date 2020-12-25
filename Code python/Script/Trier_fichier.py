@@ -24,7 +24,7 @@ for fichier in fichiers:
     folder = extensions.get(extension)
     if folder:
         folder_path = os.path.join(f'{CUR_DIR}', folder)
-        os.makedirs(f'{CUR_DIR}/{folder}', exist_ok=True)
+        os.makedirs(folder_path, exist_ok=True)
         shutil.move(fichier, folder_path)
 
 print("Files have been moved successfully!")
