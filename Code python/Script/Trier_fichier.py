@@ -7,12 +7,12 @@ import time
 CUR_DIR = os.path.dirname(__file__)
 
 #Create folders if not exist
-os.makedirs(f'{CUR_DIR}/Musique', exist_ok=True)
-os.makedirs(f'{CUR_DIR}/Videos', exist_ok=True)
-os.makedirs(f'{CUR_DIR}/Images', exist_ok=True)
-os.makedirs(f'{CUR_DIR}/Documents', exist_ok=True)
-os.makedirs(f'{CUR_DIR}/Notebooks', exist_ok=True)
-os.makedirs(f'{CUR_DIR}/Software', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Musique', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Videos', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Images', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Documents', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Notebooks', exist_ok=True)
+# os.makedirs(f'{CUR_DIR}/Software', exist_ok=True)
 
 #Files extension
 extensions = {".mp3": "Musique",
@@ -32,6 +32,7 @@ for fichier in fichiers:
     folder = extensions.get(extension)
     if folder:
         folder_path = os.path.join(f'{CUR_DIR}', folder)
+        os.makedirs(f'{CUR_DIR}/{folder}', exist_ok=True)
         shutil.move(fichier, folder_path)
 
 print("Files have been moved successfully!")
