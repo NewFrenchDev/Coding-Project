@@ -6,14 +6,6 @@ import time
 #path
 CUR_DIR = os.path.dirname(__file__)
 
-#Create folders if not exist
-# os.makedirs(f'{CUR_DIR}/Musique', exist_ok=True)
-# os.makedirs(f'{CUR_DIR}/Videos', exist_ok=True)
-# os.makedirs(f'{CUR_DIR}/Images', exist_ok=True)
-# os.makedirs(f'{CUR_DIR}/Documents', exist_ok=True)
-# os.makedirs(f'{CUR_DIR}/Notebooks', exist_ok=True)
-# os.makedirs(f'{CUR_DIR}/Software', exist_ok=True)
-
 #Files extension
 extensions = {".mp3": "Musique",
               ".wav": "Musique",
