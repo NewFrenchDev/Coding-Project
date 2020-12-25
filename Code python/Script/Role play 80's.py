@@ -28,7 +28,7 @@ while running:
 
             #User choice
             user_choice = input("Souhaitez-vous attaquer (1) ou utiliser une potion (2)?")
-            if not user_choice.isdigit() or not user_choice in ["1", "2"]:
+            if not user_choice in ["1", "2"]:
                 print("La valeur entrée est incorrect...")
                 continue
             #Attack phase
