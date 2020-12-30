@@ -1,0 +1,19 @@
+{
+    "_comment_bonjour_":"Les réponses quand un utlisateur salut dans un channel du serveur",
+        "hello":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "bonjour":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "yo":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "hi":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "salut":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "yop":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "bonjourno":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        "coucou":"Hello {username}! Contente de te voir aujourd'hui! :blush:",
+        
+    "_comment_aurevoir_":"Les réponses quand un utlisateur salut dans un channel du serveur",    
+        "bye":"Au revoir {username}! Reviens vite parmi nous! :blush:",
+        "ciao":"Au revoir {username}! Reviens vite parmi nous! :blush:",
+        "au revoir":"Au revoir {username}! Reviens vite parmi nous! :blush:",
+        "a demain":"Au revoir {username}! Reviens vite parmi nous! :blush:",
+        "bonne nuit":"Au revoir {username}! Reviens vite parmi nous! :blush:",
+        "bonne soirée":"Au revoir {username}! Reviens vite parmi nous! :blush:" 
+}
