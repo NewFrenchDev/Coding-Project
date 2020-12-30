@@ -3,7 +3,6 @@ import logging
 
 from discord.ext import commands
 
-
 class RobotCop(commands.Bot):
     def __init__(self, responses):
         """Initialisation de l'instance 
