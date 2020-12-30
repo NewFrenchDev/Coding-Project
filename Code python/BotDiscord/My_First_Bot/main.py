@@ -1,3 +1,4 @@
+#python 3.7.9
 import os
 
 from dotenv import load_dotenv
