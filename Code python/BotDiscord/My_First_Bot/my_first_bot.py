@@ -10,7 +10,7 @@ class RobotCop(commands.Bot):
         Args:
             responses (dict): Dictionnary contained in bot.json file
         """
-        super().__init__(command_prefix=":")
+        super().__init__(command_prefix="-")
         self.dict_responses = responses
 
     async def on_ready(self):
@@ -24,10 +24,10 @@ class RobotCop(commands.Bot):
         print(f"{self.user.display_name} is disconnected from the server.")
 
     async def on_message(self, message):
-        """Réagit selon les messages  entrer par les utilisateurs sur le serveur
+        """Reaction with messages sent by user on the server
 
         Args:
-            message (class 'discord.message.Message'): Message récupéré sur le serveur de Discord
+            message (class 'discord.message.Message'): Message get on the server
         """
         if message.author == self.user:
             return
@@ -49,4 +49,11 @@ class RobotCop(commands.Bot):
                 logging.warning("Oh seems we lost a key? haha joking")
             else:
                 print("RobotCop sent a message!")
+
+    @commands.command(name="del")
+    async def delete(self, ctx, number_of_messages: int):
+        messages = await ctx.channel.history(limit=number_of_messages + 1).flatten()
+
+        for each_message in messages:
+            await each_message.delete()
 
